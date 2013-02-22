@@ -1,0 +1,224 @@
+//--- OBJECT WRITE BEGIN ---
+%guiContent = new GuiChunkedBitmapCtrl(MainMenuGui) {
+   bitmap = "art/gui/background";
+   useVariable = "0";
+   tile = "0";
+   position = "0 0";
+   extent = "1024 768";
+   minExtent = "8 8";
+   horizSizing = "width";
+   vertSizing = "height";
+   profile = "GuiContentProfile";
+   visible = "1";
+   active = "1";
+   tooltipProfile = "GuiToolTipProfile";
+   hovertime = "1000";
+   isContainer = "1";
+   canSave = "1";
+   canSaveDynamicFields = "1";
+      enabled = "1";
+      isDecoy = "0";
+      music = "4340";
+
+   new GuiControl() {
+      position = "359 171";
+      extent = "306 425";
+      minExtent = "8 2";
+      horizSizing = "center";
+      vertSizing = "center";
+      profile = "GuiDefaultProfile";
+      visible = "1";
+      active = "1";
+      tooltipProfile = "GuiToolTipProfile";
+      hovertime = "1000";
+      isContainer = "1";
+      canSave = "1";
+      canSaveDynamicFields = "0";
+
+      new GuiButtonCtrl() {
+         text = "Play";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         useMouseEvents = "1";
+         position = "9 114";
+         extent = "289 75";
+         minExtent = "8 8";
+         horizSizing = "relative";
+         vertSizing = "bottom";
+         profile = "GuiMenuButtonProfile";
+         visible = "1";
+         active = "1";
+         command = "MainMenuGui.startLevel(\"levels/HydraRyder.mis\");";
+         tooltipProfile = "GuiToolTipProfile";
+         hovertime = "1000";
+         isContainer = "0";
+         canSave = "1";
+         canSaveDynamicFields = "0";
+      };
+      new GuiButtonCtrl() {
+         text = "Credits";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         useMouseEvents = "0";
+         position = "9 190";
+         extent = "289 75";
+         minExtent = "8 8";
+         horizSizing = "relative";
+         vertSizing = "bottom";
+         profile = "GuiMenuButtonProfile";
+         visible = "1";
+         active = "1";
+         command = "Canvas.pushDialog(CreditsDialog);";
+         tooltipProfile = "GuiToolTipProfile";
+         hovertime = "1000";
+         isContainer = "0";
+         canSave = "1";
+         canSaveDynamicFields = "0";
+      };
+      new GuiButtonCtrl() {
+         text = "Options";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         useMouseEvents = "0";
+         position = "9 267";
+         extent = "289 75";
+         minExtent = "8 8";
+         horizSizing = "relative";
+         vertSizing = "bottom";
+         profile = "GuiMenuButtonProfile";
+         visible = "1";
+         active = "1";
+         command = "Canvas.pushDialog(optionsDlg);";
+         tooltipProfile = "GuiToolTipProfile";
+         hovertime = "1000";
+         isContainer = "0";
+         canSave = "1";
+         canSaveDynamicFields = "0";
+      };
+      new GuiButtonCtrl() {
+         text = "Exit";
+         groupNum = "-1";
+         buttonType = "PushButton";
+         useMouseEvents = "0";
+         position = "9 344";
+         extent = "289 75";
+         minExtent = "8 8";
+         horizSizing = "relative";
+         vertSizing = "bottom";
+         profile = "GuiMenuButtonProfile";
+         visible = "1";
+         active = "1";
+         command = "quit();";
+         tooltipProfile = "GuiToolTipProfile";
+         hovertime = "1000";
+         isContainer = "0";
+         internalName = "ExitButton";
+         canSave = "1";
+         canSaveDynamicFields = "0";
+      };
+   };
+   new GuiBitmapCtrl(MainMenuAppLogo) {
+      bitmap = "art/gui/Torque-3D-logo.png";
+      wrap = "0";
+      position = "16 681";
+      extent = "332 104";
+      minExtent = "8 2";
+      horizSizing = "right";
+      vertSizing = "top";
+      profile = "GuiDefaultProfile";
+      visible = "1";
+      active = "1";
+      tooltipProfile = "GuiToolTipProfile";
+      hovertime = "1000";
+      isContainer = "0";
+      canSave = "1";
+      canSaveDynamicFields = "1";
+         enabled = "1";
+         isDecoy = "0";
+   };
+   new GuiBitmapCtrl() {
+      bitmap = "art/gui/HRLogo.png";
+      wrap = "0";
+      position = "0 48";
+      extent = "1024 196";
+      minExtent = "8 2";
+      horizSizing = "center";
+      vertSizing = "bottom";
+      profile = "GuiDefaultProfile";
+      visible = "1";
+      active = "1";
+      tooltipProfile = "GuiToolTipProfile";
+      hovertime = "1000";
+      isContainer = "0";
+      canSave = "1";
+      canSaveDynamicFields = "0";
+   };
+   new GuiTextCtrl() {
+      text = "v1.0";
+      maxLength = "1024";
+      margin = "0 0 0 0";
+      padding = "0 0 0 0";
+      anchorTop = "1";
+      anchorBottom = "0";
+      anchorLeft = "1";
+      anchorRight = "0";
+      position = "959 729";
+      extent = "47 24";
+      minExtent = "8 2";
+      horizSizing = "left";
+      vertSizing = "top";
+      profile = "GuiText24Profile";
+      visible = "1";
+      active = "1";
+      tooltipProfile = "GuiToolTipProfile";
+      hovertime = "1000";
+      isContainer = "1";
+      canSave = "1";
+      canSaveDynamicFields = "0";
+   };
+};
+//--- OBJECT WRITE END ---
+
+function MainMenuGui::onWake(%this)
+{
+   // Start the theme music
+   %this.music = sfxPlayOnce(AudioMusicLoop2D, "art/sound/hydra/MovementProposition");
+   %this.music.setFadeTimes(0, 2);
+}
+
+function MainMenuGui::onSleep(%this)
+{
+   // Stop the music
+   //schedule(5000, 0, "sfxStopAndDelete", %this.music);
+}
+
+// Start up the given level and the optional hosting type
+function MainMenuGui::startLevel( %this, %mission, %hostingType )
+{
+   if( %mission $= "" )
+   {
+      error("MainMenuGui::startLevel(): Missing mission");
+      return;
+   }
+
+   if (%hostingType !$= "")
+   {
+      %serverType = %hostingType;
+   }
+   else
+   {
+      // Always default to single player
+      %serverType = "SinglePlayer";
+   }
+
+   // Show the loading screen immediately.
+   if ( isObject( LoadingGui ) )
+   {
+      Canvas.setContent("LoadingGui");
+      LoadingProgress.setValue(1);
+      LoadingProgressTxt.setValue("LOADING MISSION FILE");
+      Canvas.repaint();
+   }
+
+   createAndConnectToLocalServer( %serverType, %mission );
+}

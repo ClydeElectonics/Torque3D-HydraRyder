@@ -1,0 +1,11 @@
+HKCR
+{
+	NoRemove AppID
+	{
+		'%APPID%' = s 'IEHydraRyderPlugin'
+		'IEHydraRyderPlugin.DLL'
+		{
+			val AppID = s '%APPID%'
+		}
+	}
+}
